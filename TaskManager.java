@@ -37,8 +37,12 @@ public class TaskManager {
         }
     }
 
-    public void delete(int id) {
+    public void delete(Task task) {
 
+        this.tasks.remove(task);
+    }
+
+    public Task get(int id){
         Task temp = null;
 
         for(Task task: this.tasks){
@@ -48,7 +52,7 @@ public class TaskManager {
             }
         }
 
-        this.tasks.remove(temp);
+        return temp;
     }
 
     public void printDone() {
