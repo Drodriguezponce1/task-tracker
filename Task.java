@@ -11,7 +11,7 @@ public class Task{
         this.id = identifier;
         identifier++;
         this.description = "na";
-        this.status = "in progress";
+        this.status = "in-progress";
         this.createdAt = LocalDateTime.now();
     }
 
@@ -19,7 +19,7 @@ public class Task{
         this.id = identifier;
         identifier++;
         this.description = description;
-        this.status = "in progress";
+        this.status = "in-progress";
         this.createdAt = LocalDateTime.now();
     }
 

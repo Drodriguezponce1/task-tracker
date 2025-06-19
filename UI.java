@@ -38,12 +38,70 @@ public class UI {
                 add();
             } else if (command.equalsIgnoreCase("update")) {
                 update();
+            } else if (command.equalsIgnoreCase("delete")) {
+                delete();
             } else if (command.equalsIgnoreCase("list")) {
-                this.manager.printAll();
+                list();
             }
 
             System.out.println("===============================================\n");
         }
+    }
+
+    public void list(){
+        System.out.println("Please provide the list category you want to print: ");
+        boolean flag = false;
+        String category = "";
+        while (!flag) {
+
+            try {
+                System.out.print("Category {in-progress}, {done}, {all}: ");
+                category = scanner.nextLine();
+
+                if (!category.equalsIgnoreCase("in-progress") && !category.equalsIgnoreCase("done") && !category.equalsIgnoreCase("all")) {
+                    throw new InputMismatchException();
+                }
+
+                flag = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Wrong input type or no task with that ID");
+            }
+        }
+
+        if(category.equalsIgnoreCase("in-progress")){
+            this.manager.printInProgress();
+        }else if(category.equalsIgnoreCase("done")){
+            this.manager.printDone();
+        }else{
+            this.manager.printAll();
+        }
+        
+    }
+
+    public void delete(){
+        System.out.println("Please provide the ID of the task you want to delete: ");
+        boolean flag = false;
+        int id = 0;
+        Task task = null;
+        while (!flag) {
+
+            try {
+                System.out.print("ID: ");
+                id = Integer.parseInt(scanner.nextLine());
+
+                task = this.manager.get(id);
+
+                if (task == null) {
+                    throw new InputMismatchException();
+                }
+
+                flag = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Wrong input type or no task with that ID");
+            }
+        }
+
+        this.manager.delete(task);
     }
 
     public void update() {
@@ -90,12 +148,17 @@ public class UI {
             }
 
         }
-        System.out.print("Command: ");
 
-        System.out.print("Description: ");
+        if (choice.equalsIgnoreCase("status")) {
+            System.out.println("Please provide a status update: {in-progress}, {done}");
+            String status = scanner.nextLine();
+            this.manager.updateStatus(id, status);
+        } else {
+            System.out.println("Please provide a Desciption: ");
+            String description = scanner.nextLine();
+            this.manager.updateDescription(id, description);
+        }
 
-        String description = scanner.nextLine();
-        this.manager.updateDescription(id, description);
     }
 
     public void add() {
@@ -109,12 +172,10 @@ public class UI {
 
     public void printCommands() {
         System.out.println("List of Commands: \n");
-        System.out.println("Add Task: type 'add {description}'");
-        System.out.println("Update Task: type 'update {description}'");
-        System.out.println("Delete Task: type 'delete {description}'");
-        System.out.println("List all tasks: type 'list all'");
-        System.out.println("List all done tasks: type 'list done'");
-        System.out.println("List all in-progress tasks: type 'list in-progress'");
+        System.out.println("Add Task: type 'add'");
+        System.out.println("Update Task: type 'update'");
+        System.out.println("Delete Task: type 'delete'");
+        System.out.println("List tasks: type 'list'");
         System.out.println("Entering 'quit' closes the program\n");
     }
 }

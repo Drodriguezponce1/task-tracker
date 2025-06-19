@@ -56,18 +56,35 @@ public class TaskManager {
     }
 
     public void printDone() {
+
+        if(this.tasks.isEmpty()){
+            System.out.println("[EMPTY LIST]");
+            return;
+        }
+
         this.tasks.stream()
             .filter(task -> task.getStatus().equalsIgnoreCase("done"))
             .forEach(task -> System.out.println(task));
     }
 
     public void printInProgress() {
+
+        if(this.tasks.isEmpty()){
+            System.out.println("[EMPTY LIST]");
+            return;
+        }
+
          this.tasks.stream()
             .filter(task -> task.getStatus().equalsIgnoreCase("in-progress"))
             .forEach(task -> System.out.println(task));
     }
 
     public void printAll() {
+
+        if(this.tasks.isEmpty()){
+            System.out.println("[EMPTY LIST]");
+            return;
+        }
         this.tasks.stream()
                 .forEach(task -> System.out.println(task));
     }
